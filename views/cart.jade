@@ -1,0 +1,20 @@
+extends layout 
+
+block content
+  h1= title
+  p Welcome to cart
+
+   .subcategories
+      ul(style='list-style-type:none')
+      -if(status==200)
+        hr
+        p cart is defined 
+        each i in items
+            h5= i.productId
+            h5= i.quantity
+            //- li.h5= i.items[i].variant.quantity
+
+            a(href='/order/addtocart')
+              input.btn.btn-primary(type='button' value='buy')
+      -else
+        p Please add at least one item in your cart

@@ -1,0 +1,40 @@
+extends layout 
+
+block content
+    nav(aria-label='breadcrumb')
+        ol.breadcrumb
+            li.h6.breadcrumb-item
+                a(href='/') Home |
+            li.h6.breadcrumb-item
+                a(href='/') Home |
+    .text-center
+        h1 Home Page
+        h3 Please choose a category
+          -if (username != "Visitor")
+            a(href='/order/cart')
+              input.btn.btn-primary(type='button' value='cart')
+            a(href='/auth/signout')
+              input.btn.btn-primary(type='button' value='signout')
+          -else
+            a(href='/auth/signin')
+              input.btn.btn-primary(type='button' value='signin')
+            a(href='/auth/signup')
+              input.btn.btn-primary(type='button' value='signup')
+    .subcategories
+      ul(style='list-style-type:none') 
+        each i in subCategory
+          .row
+                .container.row
+                    .col-6
+                        p.display-6= i.name
+                        hr
+                        a(href='/products/product_id/' + i.id)
+                            img.w-75(src='/static/images/' + i.image_groups[0].images[0].link)
+                    .col-5
+                        li.h5= i.price
+                        li.h5= i.currency
+                        li.h5= i.image_groups[0].images[0].link
+                        li.h5= i.page_title
+                        li.h5= i.short_description
+                        li.h5= i.long_description
+                        br

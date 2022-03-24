@@ -1,0 +1,40 @@
+extends layout 
+
+block content
+    nav(aria-label='breadcrumb')
+        ol.breadcrumb
+            li.h6.breadcrumb-item
+                a(href='/') Home
+    .text-center
+        h1 Home Page
+        h3 Please choose a category
+          -if (username != "Visitor")
+            a(href='/order/cart')
+              button.btn.btn-primary(type='button' value='cart') Cart
+            a(href='/auth/signout')
+              button.btn.btn-primary(type='button' value='signout') Logout
+          -else
+            a(href='/auth/signin')
+              button.btn.btn-primary(type='button' value='signin') Login
+            a(href='/auth/signup')
+              button.btn.btn-primary(type='button' value='signup') Sign Up
+    .subcategories
+      ul(style='list-style-type:none') 
+        each i in product
+          .oneSubCategorie.p-3.mb-3.bg-dark.text-white.rounded.text-center
+            p.display-6= i.name
+            hr
+            a(href='/products/product_id/' + i.id)
+              img.w-75(src='/static/images/' + i.image_groups[0].images[0].link)
+            li.h5= i.price
+            li.h5= i.currency
+            li.h5= i.image_groups[0].images[0].link
+            li.h5= i.page_title
+            li.h5= i.short_description
+            li.h5= i.long_description
+            -if (username != "Visitor")
+                form(action='/order/addtocart' method='post')
+                button.btn.btn-primary(type='submit' name='product_id' value=i.id) Add to Cart
+                br
+            -else
+                p Please log in for add this item to cart
