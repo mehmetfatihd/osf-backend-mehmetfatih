@@ -11,6 +11,8 @@ block content
           -if (username != "Visitor")
             a(href='/order/cart')
               input.btn.btn-primary(type='button' value='cart')
+            a(href='/order/wishlist')
+              input.btn.btn-primary(type='button' value='wishlist')
             a(href='/auth/signout')
               input.btn.btn-primary(type='button' value='signout')
           -else

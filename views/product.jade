@@ -33,8 +33,11 @@ block content
             li.h5= i.short_description
             li.h5= i.long_description
             -if (username != "Visitor")
-                form(action='/order/addtocart' method='post')
-                button.btn.btn-primary(type='submit' name='product_id' value=i.id) Add to Cart
+                a(href='/order/addtocart/'+i.id+'/'+i.variants[0].product_id )
+                    button.btn.btn-light(type='submit' name='product_id') Add to Cart
+                br
+                a(href='/order/addtowishlist/'+i.id+'/'+i.variants[0].product_id )
+                    button.btn.btn-light(type='submit' name='product_id') Add to Wishlist
                 br
             -else
                 p Please log in for add this item to cart
