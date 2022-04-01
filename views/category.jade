@@ -27,27 +27,27 @@ block content
                                         button.btn(type='submit' name='product_id') More Info
 
 
-                div.column
-                    .row
-                        h3= i.name
+                //- div.column
+                //-     .row
+                //-         h3= i.name
 
-                    .row
-                        .column
-                            a(href='/products/product_id/' + i.id)
-                                img.image-fixed(src='/static/images/' + i.image_groups[0].images[0].link)
+                //-     .row
+                //-         .column
+                //-             a(href='/products/product_id/' + i.id)
+                //-                 img.image-fixed(src='/static/images/' + i.image_groups[0].images[0].link)
 
-                        .column
-                            p= i.long_description
-                            .row
-                                .cloumn
-                                    .row
-                                        p Price:
-                                        p= i.price
-                                        p .00  
-                                        h5=i.currency
-                                .column
-                                    a(href='/products/product_id/' + i.id)
-                                        button.btn(type='submit' name='product_id') More Info
+                //-         .column
+                //-             p= i.long_description
+                //-             .row
+                //-                 .cloumn
+                //-                     .row
+                //-                         p Price:
+                //-                         p= i.price
+                //-                         p .00  
+                //-                         h5=i.currency
+                //-                 .column
+                //-                     a(href='/products/product_id/' + i.id)
+                //-                         button.btn(type='submit' name='product_id') More Info
 
 //- extends layout 
 
