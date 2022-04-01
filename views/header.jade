@@ -1,0 +1,37 @@
+header
+    .title
+        h1.title Welcome to AlibaZon #{username}
+            div.header-right.dropdown
+              button.btn.dropbtn Categories
+              .dropdown-content
+                a.category-title(href='/parent/mens') Mens
+                a.category-sub(href='/parent/mens-clothing') Mens Clothing
+                a.category-sub(href='/parent/mens-accessories') Mens Accessories
+                a.category-title(href='/parent/womens') Womens
+                a.category-sub(href='/parent/womens-clothing') Womens Clothing
+                a.category-sub(href='/parent/womens-accessories') Womens Accessories
+                a.category-sub(href='/parent/womens-jewelry') Womens Jewelry
+          if (username != "Visitor")
+            a(href='/order/cart')
+              button.btn.header-right(type='button' value='cart') Cart
+            a(href='/order/wishlist')
+              button.btn.header-right(type='button' value='wishlist') Wishlist
+            a(href='/auth/signout')
+              button.btn.header-right(type='button' value='signout') Sign Out
+          else
+            a(href='/auth/signin')
+              input.btn.header-right(type='button' value='Sign in')
+            a(href='/auth/signup')
+              input.btn.header-right(type='button' value='Sign up')
+    ul.breadcrumb
+        li(class=title=='Home'?'active':undefined)
+            a(href='/') Home
+        li(class=title=='Categories'?'active':undefined)
+            a(href='/parent')  Cat
+        li(class=title=='Contact'?'active':undefined)
+            a(href='/contact') Contact
+        //- ul.breadcrumb
+        //-     li
+        //-         a(href='/') Home
+        //-     li
+        //-         a(href='/') ahmet

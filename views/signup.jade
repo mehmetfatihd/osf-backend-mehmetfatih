@@ -2,25 +2,23 @@ extends layout
 
 block content
 
-    .main.container.row
-        .col-md-6.col-md-offset-3
-            h1.display-4.m-b-2 Sign Up
+    .index-mid
+        .signin
+            h1.index-mid Sign Up
 
             form(action='/auth/signup', method='post')
-                .form-group 
-                    label Email: 
-                        input.form-control(type='text', placeholder='johndoe@example.com' name='email')
+                div
+                        input.form(type='text', placeholder='email' name='email')
                 br
-                .form-group
-                    label Name: 
-                        input.form-control(type='text', placeholder='John Doe' name='name')
+                div
+
+                        input.form(type='text', placeholder='name' name='name')
                 br 
-                .form-group
-                    label Password: 
-                        input.form-control(type='text', name='password')
+                div
+
+                        input.form(type='text', placeholder='password', name='password')
                 br    
-                .form-group
-                    label Confirm Password: 
-                        input.form-control(type='text', name='cPassword')
+                div
+                        input.form(type='text',  placeholder='confirm password', name='cPassword')
                 br   
-                button.btn.btn-primary(type='submit') Submit
+                button.btn.long(type='submit') Submit

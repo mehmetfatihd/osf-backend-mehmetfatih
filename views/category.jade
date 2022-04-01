@@ -1,42 +1,101 @@
 extends layout 
 
 block content
-    nav(aria-label='breadcrumb')
-        ol.breadcrumb
-            li.h6.breadcrumb-item
-                a(href='/') Home |
-            li.h6.breadcrumb-item
-                a(href='/') Home |
-    .text-center
-        h1 Home Page
-        h3 Please choose a category
-          -if (username != "Visitor")
-            a(href='/order/cart')
-              input.btn.btn-primary(type='button' value='cart')
-            a(href='/auth/signout')
-              input.btn.btn-primary(type='button' value='signout')
-          -else
-            a(href='/auth/signin')
-              input.btn.btn-primary(type='button' value='signin')
-            a(href='/auth/signup')
-              input.btn.btn-primary(type='button' value='signup')
-    .subcategories
-      ul(style='list-style-type:none') 
+    div
         each i in subCategory
-          .row
-                .container.row
-                    .col-6
-                        p.display-6= i.name
-                        hr
-                        a(href='/products/product_id/' + i.id)
-                            img.w-75(src='/static/images/' + i.image_groups[0].images[0].link)
-                    .col-5
-                        li.h5= i.price
-                        li.h5= i.currency
-                        li.h5= i.image_groups[0].images[0].link
-                        li.h5= i.page_title
-                        li.h5= i.short_description
-                        li.h5= i.long_description
-                        a(href='/products/product_id/' + i.id)
-                            button.btn.btn-light(type='submit' name='product_id') More Info
-                        br
+            div.row
+                div.column
+                    .row
+                        h3= i.name
+
+                    .row
+                        .column
+                            a(href='/products/product_id/' + i.id)
+                                img.image-fixed(src='/static/images/' + i.image_groups[0].images[0].link)
+
+                        .column
+                            p= i.long_description
+                            .row.bottom
+                                .cloumn
+                                    .row
+                                        p Price:
+                                        p= i.price
+                                        p .00  
+                                        h5=i.currency
+                                .column
+                                    a(href='/products/product_id/' + i.id)
+                                        button.btn(type='submit' name='product_id') More Info
+
+
+                div.column
+                    .row
+                        h3= i.name
+
+                    .row
+                        .column
+                            a(href='/products/product_id/' + i.id)
+                                img.image-fixed(src='/static/images/' + i.image_groups[0].images[0].link)
+
+                        .column
+                            p= i.long_description
+                            .row
+                                .cloumn
+                                    .row
+                                        p Price:
+                                        p= i.price
+                                        p .00  
+                                        h5=i.currency
+                                .column
+                                    a(href='/products/product_id/' + i.id)
+                                        button.btn(type='submit' name='product_id') More Info
+
+//- extends layout 
+
+//- block content
+//-     div
+//-         - for (var index = 0; index<subCategory.length; index++)
+//-             div.row
+//-                     div.column
+//-                         .row
+//-                             h3= subCategory[index].name
+
+//-                         .row
+//-                             .column
+//-                                 a(href='/products/product_id/' + subCategory[index].id)
+//-                                     img.image-fixed(src='/static/images/' + subCategory[index].image_groups[0].images[0].link)
+
+//-                             .column
+//-                                 p= subCategory[index].long_description
+//-                                 .row.bottom
+//-                                     .cloumn
+//-                                         .row
+//-                                             p Price:
+//-                                             p= subCategory[index].price
+//-                                             p .00  
+//-                                             h5=subCategory[index].currency
+//-                                     .column
+//-                                         a(href='/products/product_id/' + subCategory[index].id)
+//-                                             button.btn(type='submit' name='product_id') More Info
+//-                 if index==0
+//-                     div.column
+//-                         .row
+//-                             h3= subCategory[index].name
+
+//-                         .row
+//-                             .column
+//-                                 a(href='/products/product_id/' + subCategory[index].id)
+//-                                     img.image-fixed(src='/static/images/' + subCategory[index].image_groups[0].images[0].link)
+
+//-                             .column
+//-                                 p= subCategory[index].long_description
+//-                                 .row
+//-                                     .cloumn
+//-                                         .row
+//-                                             p Price:
+//-                                             p= subCategory[index].price
+//-                                             p .00  
+//-                                             h5=subCategory[index].currency
+//-                                     .column
+//-                                         a(href='/products/product_id/' + subCategory[index].id)
+//-                                             button.btn(type='submit' name='product_id') More Info
+                    

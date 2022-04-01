@@ -16,7 +16,7 @@ router.post('/signup', function(req, res,) {
     //console.log(req.body);
     if(req.body.name&& req.body.email && req.body.password && req.body.cPassword){
         if(req.body.password == req.body.cPassword){
-            console.log("ahmet mehmet");
+
 
             (async () =>{
                 console.log("sign up request activated")
@@ -31,8 +31,6 @@ router.post('/signup', function(req, res,) {
                         res.cookie('name', response.data.user.name);
                         res.cookie('jwt', response.data.token);
                         res.redirect('/');
-                        console.log(response.data); // ex.: { user: 'Your User'}
-                        console.log(response.status); // ex.: 200
                     }); 
             })();
 
@@ -54,9 +52,9 @@ router.get('/signin', function(req, res,) {
 
 router.post('/signin', function(req, res, next) {
     if(req.body.email && req.body.password){
-        console.log("signin route activated");
+
         (async () =>{
-            console.log("signin request activated")
+
 
             axios.post(`${process.env.base_url}/auth/signin`,{
                 secretKey: `${process.env.secretKey}`,
@@ -67,8 +65,7 @@ router.post('/signin', function(req, res, next) {
                     res.cookie('name', response.data.user.name);
                     res.cookie('jwt', response.data.token);
                     res.redirect('/');
-                    console.log(response.data); // ex.: { user: 'Your User'}
-                    console.log(response.status); // ex.: 200
+
                 }); 
         })();
     }else{

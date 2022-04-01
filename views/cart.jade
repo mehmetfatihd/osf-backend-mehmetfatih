@@ -1,38 +1,44 @@
 extends layout 
 
 block content
-  h1= title
-  p Welcome to cart             
-    a(href='/')
-      button.btn.btn-light(type='submit' name='Home') Home Page
+  h1= title         
     a(href='/order/myorders')
-      button.btn.btn-light(type='submit' name='myOrders') My Orders
-    br
+      button.btn.header-right(type='submit' name='myOrders') My Orders
 
-   .subcategories
+   .div
       ul(style='list-style-type:none')
       -if(status==200)
         br
-        p cart is defined 
+        -var sum;
         each i in items
-            h5= i.productId
-            h5= i.quantity
-            h5= i.variant.product_id
-            //- li.h5= i.items[i].variant.quantity
-            h5 Change Quantity
-            form(action='/order/changequantity/'+i.productId + '/' + i.variant.product_id + '/cart', method='post')
-                .form-group 
-                    label Quantity: 
-                        input.form-control(type='text', placeholder=i.quantity name='quantity')
-                      button.btn.btn-primary(type='submit') Change
-              br
-            a(href='/order/remove/cart/'+i.productId + '/' + i.variant.product_id)
-              button.btn.btn-light(type='submit' name='product_id') Delete
-            br
+          .row.border
+            .column
+              img.w-75(src='/static/images/' + i.link)
+            .column
+              h2.index-mid= i.title
+              .row
+                .column
+                  .row
+                    p Price:
+                    p= i.variant.price
+                    h5 USD
+                .column
+                  -var total = i.variant.price * i.quantity
+                  -var sum = sum + total
+                  h4 Total: #{total}  USD
+              form(action='/order/changequantity/'+i.productId + '/' + i.variant.product_id + '/cart', method='post')
+                .div       
+                  input.form.short(type='number', placeholder=i.quantity name='quantity')
+                  button.btn(type='sumbit') Change Quantity
+                  a(href='/order/remove/cart/'+i.productId + '/' + i.variant.product_id)
+                    button.btn(type='button' name='product_id') Delete
         br
         br
-        a(href='/order/create')
-          button.btn.btn-primary(type='button' value='buy') Buy
+        form(action='/order/create', method='post')
+          input.form(type='test', placeholder='Adress' name='adress')
+          button.btn(type='submit') Buy
           br
+        h5 Total: #{sum}
+
       -else
         p Please add at least one item in your cart

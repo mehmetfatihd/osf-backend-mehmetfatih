@@ -3,6 +3,193 @@ body {
   padding: 0 200px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+.bottomfooter{
+  display: flex;
+  justify-content: center;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0px;
+  word-spacing: 2px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+
+}
+.main-page{
+  /* background-color: #d6b692; */
+  background-color: #ffffff;
+}
+.btn {
+  background: #f27a1a;
+  /* background-image: -webkit-linear-gradient(top, #f27a1a, #fa974b);
+  background-image: -moz-linear-gradient(top, #f27a1a, #fa974b);
+  background-image: -ms-linear-gradient(top, #f27a1a, #fa974b);
+  background-image: -o-linear-gradient(top, #f27a1a, #fa974b); */
+  background-image: linear-gradient(to bottom, #f27a1a, #fa974b);
+  border-radius: 9px;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  word-spacing: 2px;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.btn:hover {
+  background: #f26d08;
+  text-decoration: none;
+}
+
+.title {
+  overflow: hidden;
+  padding: 10px 10px;
+  display: inline
+}
+.index-mid{
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+}
+.image-mid{
+  margin-bottom: 20px;
+}
+/*Some of items doesnt have a medium image, so image size fixed for some pages*/
+.image-fixed{
+  height: 200px;
+  width: 200px;
+}
+.text-mid{
+  display: flex;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+}
+.mid{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
 
 
+.header-right{
+  float: right;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropbtn {
+  width: 150%;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+.dropdown-content {
+  display: none;
+  width: 140%;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 2px;
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 2px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
 
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #f26d08;
+}
+
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+}
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  flex: 50%;
+}
+
+.row {
+  display: flex;
+}
+.row.border {
+  border: solid;
+  border-color: #000000;
+  margin-top: 5%;
+}
+.row.bottom {
+  display: flex;
+  vertical-align: bottom;
+  align-self: flex-end;
+}
+
+.form{
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-left: 10%;
+
+}
+.form.short{
+  width: 30%;
+}
+.btn.long{
+  width: 100%;
+  justify-content: center;
+  margin: 0 0 0 0;
+}
+
+.signin{
+  background-color: #f1d3bc;
+  border-radius: 10px;
+  width: 33%;
+}
+.text-right-small{
+  margin-left: 50%;
+  font-size: 12px;
+  color: #000000;
+}
+.category-title{
+  float: left;
+  font-size: 16px;
+}
+.category-sub{
+  float: right;
+  font-size: 13px;
+}

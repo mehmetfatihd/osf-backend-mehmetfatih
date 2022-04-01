@@ -1,18 +1,21 @@
+
+
 extends layout 
 
 block content
 
-    .main.container.row
-        .col-md-6.col-md-offset-3
-            h1.display-4.m-b-2 Sign in
+    div.index-mid
+        div.signin
+            h1.index-mid Sign in
 
             form(action='/auth/signin', method='post')
-                .form-group 
-                    label Email: 
-                        input.form-control(type='text', placeholder='johndoe@example.com' name='email')
+                div 
+                        input.form(type='text', placeholder='username' name='email')
                 br
-                .form-group
-                    label Password: 
-                        input.form-control(type='text', name='password')
+                div
+                        input.form(type='text', placeholder='password' name='password')
                 br      
-                button.btn.btn-primary(type='submit') Submit
+                button.btn.long(type='submit') LOGIN
+
+                a.text-right-small(href='/auth/signup') Don't have an account? Sign up ->
+

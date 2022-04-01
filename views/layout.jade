@@ -2,7 +2,17 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    
+    link(rel='stylesheet', href='/stylesheets/breadcrumbs.style.css')
+    link(rel='stylesheet', href='/stylesheets/containers.css')
+    link(rel='stylesheet', href='/stylesheets/currency-picker.style.css')
+    link(rel='stylesheet', href='/stylesheets/navbar.css')
+    link(rel='stylesheet', href='/stylesheets/paginator.style.css')
+    link(rel='stylesheet', href='/stylesheets/product-detail.style.css')
+    link(rel='stylesheet', href='/static/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style2.css')
+  body.main-page
+    include header
+
     block content
+
+    include footer

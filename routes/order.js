@@ -5,62 +5,51 @@ const dotenv = require('dotenv');
 //const app = require('../app');
 const app = express();
 const cookieParser = require('cookie-parser');
+const { get } = require('express/lib/response');
 app.use(cookieParser());
 dotenv.config();
 
 
+
 //CART
 
-
-//Get Cart
-
-// async function getCart(jwt){
-//   var config = {
-//     method: 'get',
-//     url: `${process.env.base_url}/cart?secretKey=${process.env.secretKey}`,
-//     headers: { 
-//       'Content-Type': 'application/json', 
-//       'Authorization': `Bearer ${jwt}`
-//     }
-//   };
-
-
-//   axios(config)
-//   .then(function (response) {
-//       console.log("getcart activated")
-//       //console.log(response.data.items)
-//       this.ahmet = {cart: response.data.items, status: response.status}
-//       //var ahmet =  response.data.items
-//       console.log(ahmet)
-//   })
-//   .catch(function (error) {
-//       var ahmet = {status: "400"}
-//   });
-//   var ahmet =[];
-//   return ahmet
-// }
-router.get('/cart', function(req, res, next) {
-
+router.get('/cart', async (req, res, next) => {
     var config = {
         method: 'get',
         url: `${process.env.base_url}/cart?secretKey=${process.env.secretKey}`,
         headers: { 
-          'Content-Type': 'application/json', 
-          'Authorization': `Bearer ${req.cookies.jwt}`
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${req.cookies.jwt}`
         }
     };
 
-    axios(config)
-    .then(function (response) {
+    async function renderCart(config){
+        const cartArray = await axios(config);
+        const productRequests = []
+        obj=[];
         
-        console.log(response.data.items)
-        res.render('cart', {items: response.data.items, status: response.status} )
-    })
-    .catch(function (error) {
-        res.render('cart', { status: "400"} )
-    console.log(error);
-    });
+        for(i=0;i<cartArray.data.items.length; i++){
+            productInfoAll = await axios.get( `${process.env.base_url}/products/product_search?id=${cartArray.data.items[i].productId}&secretKey=$2a$08$IfsijPJvzincPvoqP7L1RO5M10oW96.nmtsS3lv62MSzLZeg9k.1S`)
+            var sliceTemp = productInfoAll.data[0].image_groups[0].images[0].title.slice(0,-1);
+            var sliceTemp2 = sliceTemp.slice(0,-1);
+            productInfoAll.data[0].image_groups[0].images[0].title = sliceTemp2;
+            productInfo = productInfoAll.data[0].image_groups[0].images[0]
+            productRequests.push(productInfo)
+            var a=cartArray.data.items[i]
+            var b=productRequests[i]
+            obj[i]={...a, ...b}
+        }
+        //console.log(productRequests)
+        //console.log(obj)
+        return obj
+        //return cartArray.data.items
+    }
+    var ahmet = await renderCart(config)
+    res.render('cart', {items: ahmet, status: "200"});
+
 });
+
+
 
 //Add Item to Cart
 router.get('/addtocart/:id/:var', function(req, res, next){
@@ -94,7 +83,29 @@ router.get('/addtocart/:id/:var', function(req, res, next){
 
 //Get Wishlist
 
-router.get('/wishlist', function(req, res, next) {
+// router.get('/wishlist', function(req, res, next) {
+
+//     var config = {
+//         method: 'get',
+//         url: `${process.env.base_url}/wishlist?secretKey=${process.env.secretKey}`,
+//         headers: { 
+//           'Content-Type': 'application/json', 
+//           'Authorization': `Bearer ${req.cookies.jwt}`
+//         }
+//     };
+
+//     axios(config)
+//     .then(function (response) {
+        
+//         console.log(response.data.items)
+//         res.render('wishlist', {items: response.data.items, status: response.status} )
+//     })
+//     .catch(function (error) {
+//         res.render('wishlist', { status: "400"} )
+//     console.log(error);
+//     });
+// });
+router.get('/wishlist', async function(req, res, next) {
 
     var config = {
         method: 'get',
@@ -105,16 +116,30 @@ router.get('/wishlist', function(req, res, next) {
         }
     };
 
-    axios(config)
-    .then(function (response) {
+    async function renderWish(config){
+        const wishArray = await axios(config);
+        const productRequests = []
+        obj=[];
         
-        console.log(response.data.items)
-        res.render('wishlist', {items: response.data.items, status: response.status} )
-    })
-    .catch(function (error) {
-        res.render('wishlist', { status: "400"} )
-    console.log(error);
-    });
+        for(i=0;i<wishArray.data.items.length; i++){
+            productInfoAll = await axios.get( `${process.env.base_url}/products/product_search?id=${wishArray.data.items[i].productId}&secretKey=$2a$08$IfsijPJvzincPvoqP7L1RO5M10oW96.nmtsS3lv62MSzLZeg9k.1S`)
+            var sliceTemp = productInfoAll.data[0].image_groups[0].images[0].title.slice(0,-1);
+            var sliceTemp2 = sliceTemp.slice(0,-1);
+            productInfoAll.data[0].image_groups[0].images[0].title = sliceTemp2;
+            productInfo = productInfoAll.data[0].image_groups[0].images[0]
+            productRequests.push(productInfo)
+            var a=wishArray.data.items[i]
+            var b=productRequests[i]
+            obj[i]={...a, ...b}
+        }
+        //console.log(productRequests)
+        //console.log(obj)
+        return obj
+        //return wishArray.data.items
+    }
+    var ahmet = await renderWish(config)
+    console.log(ahmet)
+    res.render('wishlist', {items: ahmet, status: "200"});
 });
 
 //Add Item to Wishlist
@@ -233,34 +258,47 @@ router.get('/myorders', function(req,res){
 });
 
 //Create Order
-router.get('/create', function(req,res,next){
-  var cart = getCart(req.cookies.jwt);
-  var data = JSON.stringify({
-      "secretKey": `${process.env.secretKey}`,
-      "address": "address",
-      "paymentId": "1",
-      "items": cart
-    });
-    
+router.post('/create', async function(req,res,next){
     var config = {
-      method: 'post',
-      url: `${process.env.base_url}/orders`,
-      headers: { 
-        'Authorization': `Bearer ${req.cookies.jwt}`, 
-        'Content-Type': 'application/json'
-      },
-      data : data
+        method: 'get',
+        url: `${process.env.base_url}/cart?secretKey=${process.env.secretKey}`,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${req.cookies.jwt}`
+        }
     };
-    
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      res.render('dummy', {dummy: "order created"})
-    })
-    .catch(function (error) {
-      res.render('dummy', {dummy: "order cannot created"});
-      console.log(error);
-    });
+
+    async function createOrder(config){
+        const cartArray = await axios(config);
+
+        var data = JSON.stringify({
+            "secretKey": `${process.env.secretKey}`,
+            "address": req.params.adress,
+            "paymentId": "1",
+            "items": cartArray.data.items
+        });
+          
+        var config2 = {
+        method: 'post',
+        url:  `${process.env.base_url}/orders`,
+        headers: { 
+            'Authorization': `Bearer ${req.cookies.jwt}`, 
+            'Content-Type': 'application/json'
+        },
+        data : data
+        };
+        console.log(config2)
+        
+        const obj = await axios(config2)
+        //console.log(productRequests)
+        //console.log(obj)
+        return obj
+        //return cartArray.data.items
+    }
+    var ahmet = await createOrder(config)
+    res.render('dummy', {dummy: ahmet.data});
+
+
 })
 
 module.exports = router;
