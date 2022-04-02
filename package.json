@@ -8,6 +8,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@sentry/node": "^6.19.3",
+    "@sentry/tracing": "^6.19.3",
     "axios": "^0.26.1",
     "chai": "^4.3.6",
     "cookie-parser": "~1.4.4",

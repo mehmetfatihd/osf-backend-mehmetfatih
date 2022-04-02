@@ -13,13 +13,11 @@ router.get('/signup', function(req, res, next) {
 
 
 router.post('/signup', function(req, res,) {
-    //console.log(req.body);
+
     if(req.body.name&& req.body.email && req.body.password && req.body.cPassword){
         if(req.body.password == req.body.cPassword){
 
-
             (async () =>{
-                console.log("sign up request activated")
 
                 axios.post(`${process.env.base_url}/auth/signup`,{
                     secretKey: `${process.env.secretKey}`,
@@ -69,7 +67,6 @@ router.post('/signin', function(req, res, next) {
                 }); 
         })();
     }else{
-        console.log("please fill the info")
         var err = new Error('invalid mail or password')
     }
 });

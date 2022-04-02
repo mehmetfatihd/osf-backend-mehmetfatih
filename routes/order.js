@@ -24,7 +24,7 @@ router.get('/cart', async (req, res, next) => {
     };
 
     async function renderCart(config){
-        const cartArray = await axios(config);
+        const cartArray = await axios(config) .catch(function (error) { console.log(error);});
         const productRequests = []
         obj=[];
         
@@ -45,7 +45,7 @@ router.get('/cart', async (req, res, next) => {
         //return cartArray.data.items
     }
     var ahmet = await renderCart(config)
-    res.render('cart', {items: ahmet, status: "200"});
+    res.render('cart', {items: ahmet, status: "200"}) ;
 
 });
 
@@ -117,7 +117,8 @@ router.get('/wishlist', async function(req, res, next) {
     };
 
     async function renderWish(config){
-        const wishArray = await axios(config);
+        const wishArray = await axios(config) .catch(function (error) { console.log(error);});
+          
         const productRequests = []
         obj=[];
         
