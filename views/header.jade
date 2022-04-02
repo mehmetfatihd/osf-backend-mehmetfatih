@@ -25,13 +25,7 @@ header
               input.btn.header-right(type='button' value='Sign up')
     ul.breadcrumb
         li(class=title=='Home'?'active':undefined)
-            a(href='/') Home
+            a(href='/') HOMEPAGE
         li(class=title=='Categories'?'active':undefined)
-            a(href='/parent')  Categories
-        li(class=title=='Contact'?'active':undefined)
-            a(href='/contact') Product
-        //- ul.breadcrumb
-        //-     li
-        //-         a(href='/') Home
-        //-     li
-        //-         a(href='/') ahmet
+            a(href='/products/categories/'+categoryId) #{categoryName}
+        li(class=title=='Product'?'active':undefined) #{productName}

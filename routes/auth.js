@@ -34,10 +34,10 @@ router.post('/signup', function(req, res,) {
 
         }else{
             var err = new Error('Passwords should be match');
-            console.log(    "not equal")
+
         }
     }else{
-        console.log(    "not valid")
+
         var err = new Error('Passwords has includes letters');
     }
     

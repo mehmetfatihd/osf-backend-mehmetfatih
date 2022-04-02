@@ -10,16 +10,17 @@ dotenv.config()
 
 //get subcategory 
 router.get(['/categories/:id'], function(req, res) {
-
-  if(req.params.id=="womens-accessories" || req.params.id=="womens-jewelry" || req.params.id=="womens-clothing"){
-    res.redirect(`/parent/${req.paramas.id}`)
+  var catName = req.params.id.replaceAll("-", " ").toUpperCase();
+  if(req.params.id=="womens-accessories" || req.params.id=="womens-jewelry" || req.params.id=="womens-clothing" || req.params.id=="mens-clothing"){
+    res.redirect(`/parent/${req.params.id}`)
   }else{
-
+    //catName = axios.get(`${process.env.base_url}/categories/${req.params.id}&secretKey=${process.env.secretKey}`)
     axios.get(`${process.env.base_url}/products/product_search?primary_category_id=${req.params.id}&secretKey=${process.env.secretKey}`)
     .then(function (response){
-      res.render('category', {subCategory: response.data});
+      res.render('category', {subCategory: response.data, categoryName: catName, categoryId: req.params.id});
     }).catch(function (err){
       console.log(err);
+      console.error(err);
     });
   }
 });
@@ -36,10 +37,12 @@ router.get(['/product_id/:id'], function(req, res) {
 
     axios.get(`${process.env.base_url}/products/product_search?id=${req.params.id}&secretKey=${process.env.secretKey}`)
     .then(function (response){
-
-      res.render('product', {product: response.data, username: user});
+      var catName = response.data[0].primary_category_id.replaceAll("-", " ").toUpperCase();
+      var proName = response.data[0].name.replaceAll("-", " ").toUpperCase();
+      res.render('product', {product: response.data, username: user, categoryName:catName, productName: proName, categoryId: response.data[0].primary_category_id});
     }).catch(function (err){
       console.log(err);
+      console.error(err);
     });
 });
 

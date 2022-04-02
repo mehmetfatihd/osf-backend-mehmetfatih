@@ -7,7 +7,6 @@ var Sentry = require('@sentry/node')
 var Tracing = require('@sentry/tracing')
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 var productRouter = require('./routes/product');
 var orderRouter = require('./routes/order');
@@ -68,7 +67,6 @@ app.use(cookieParser());
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use("/auth", authRouter);
 app.use("/products", productRouter);
 app.use("/parent", parentRouter);

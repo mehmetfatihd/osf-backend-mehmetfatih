@@ -15,13 +15,14 @@ router.get('/:id', function(req, res, next) {
     }else{
       var user = req.cookies.name;
     }
-  
-      axios.get(`${process.env.base_url}/categories/parent/${req.params.id}?secretKey=${process.env.secretKey}`)
-      .then(function (response){
-        res.render('index', {categories: response.data, username: user});
-      }).catch(function (err){
-        console.log(err);
-      });
+    var catName = req.params.id.replaceAll("-", " ").toUpperCase();
+    axios.get(`${process.env.base_url}/categories/parent/${req.params.id}?secretKey=${process.env.secretKey}`)
+    .then(function (response){
+      res.render('index', {categories: response.data, username: user, categoryName: catName, categoryId: req.params.id});
+    }).catch(function (err){
+      console.log(err);
+      console.error(err);
+    });
 });
 
 module.exports = router;

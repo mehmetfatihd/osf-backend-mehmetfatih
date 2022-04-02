@@ -39,13 +39,12 @@ router.get('/cart', async (req, res, next) => {
             var b=productRequests[i]
             obj[i]={...a, ...b}
         }
-        //console.log(productRequests)
-        //console.log(obj)
+
         return obj
-        //return cartArray.data.items
+      
     }
-    var ahmet = await renderCart(config)
-    res.render('cart', {items: ahmet, status: "200"}) ;
+    var cartInfo = await renderCart(config)
+    res.render('cart', {items: cartInfo, status: "200"}) ;
 
 });
 
@@ -53,7 +52,7 @@ router.get('/cart', async (req, res, next) => {
 
 //Add Item to Cart
 router.get('/addtocart/:id/:var', function(req, res, next){
-    console.log("adding request activated")
+
     var data = JSON.stringify({
         "secretKey": `${process.env.secretKey}`,
         "productId": req.params.id,
@@ -74,7 +73,7 @@ router.get('/addtocart/:id/:var', function(req, res, next){
     axios(config)
     .then(function (response) {
     res.redirect('/order/cart');
-    console.log(JSON.stringify(response.data));
+
     })
     .catch(function (error) {
     console.log(error);
@@ -83,28 +82,7 @@ router.get('/addtocart/:id/:var', function(req, res, next){
 
 //Get Wishlist
 
-// router.get('/wishlist', function(req, res, next) {
 
-//     var config = {
-//         method: 'get',
-//         url: `${process.env.base_url}/wishlist?secretKey=${process.env.secretKey}`,
-//         headers: { 
-//           'Content-Type': 'application/json', 
-//           'Authorization': `Bearer ${req.cookies.jwt}`
-//         }
-//     };
-
-//     axios(config)
-//     .then(function (response) {
-        
-//         console.log(response.data.items)
-//         res.render('wishlist', {items: response.data.items, status: response.status} )
-//     })
-//     .catch(function (error) {
-//         res.render('wishlist', { status: "400"} )
-//     console.log(error);
-//     });
-// });
 router.get('/wishlist', async function(req, res, next) {
 
     var config = {
@@ -133,19 +111,17 @@ router.get('/wishlist', async function(req, res, next) {
             var b=productRequests[i]
             obj[i]={...a, ...b}
         }
-        //console.log(productRequests)
-        //console.log(obj)
+
         return obj
-        //return wishArray.data.items
+
     }
-    var ahmet = await renderWish(config)
-    console.log(ahmet)
-    res.render('wishlist', {items: ahmet, status: "200"});
+    var wishInfo = await renderWish(config)
+    res.render('wishlist', {items: wishInfo, status: "200"});
 });
 
 //Add Item to Wishlist
 router.get('/addtowishlist/:id/:var', function(req, res, next){
-    console.log("adding request activated")
+
     var data = JSON.stringify({
         "secretKey": `${process.env.secretKey}`,
         "productId": req.params.id,
@@ -166,7 +142,7 @@ router.get('/addtowishlist/:id/:var', function(req, res, next){
     axios(config)
     .then(function (response) {
     res.redirect('/order/wishlist');
-    console.log(JSON.stringify(response.data));
+
     })
     .catch(function (error) {
     console.log(error);
@@ -176,7 +152,7 @@ router.get('/addtowishlist/:id/:var', function(req, res, next){
 
 //Change Quantity in Both
 router.post('/changequantity/:id/:var/:location', function(req, res, next) {
-    console.log('request has came')
+
     var data = JSON.stringify({
         "secretKey": `${process.env.secretKey}`,
         "productId": req.params.id,
@@ -197,7 +173,6 @@ router.post('/changequantity/:id/:var/:location', function(req, res, next) {
       
     axios(config)
     .then(function (response) {
-    console.log(JSON.stringify(response.data));
     res.redirect(`/order/${req.params.location}`);
     })
     .catch(function (error) {
@@ -207,7 +182,7 @@ router.post('/changequantity/:id/:var/:location', function(req, res, next) {
 //Delete Item for Both
 
 router.get('/remove/:location/:id/:var', function(req, res, next) {
-    console.log('request has came')
+
     var data = JSON.stringify({
         "secretKey": `${process.env.secretKey}`,
         "productId": req.params.id,
@@ -227,7 +202,7 @@ router.get('/remove/:location/:id/:var', function(req, res, next) {
       
     axios(config)
     .then(function (response) {
-    console.log(JSON.stringify(response.data));
+
     res.redirect(`/order/${req.params.location}`);
     })
     .catch(function (error) {
@@ -245,15 +220,13 @@ router.get('/myorders', function(req,res){
           'Authorization': `Bearer ${req.cookies.jwt}`
         }
       };
-      console.log('getordert activated');
       axios(config)
       .then(function (response) {
         res.render('dummy', {dummy: JSON.stringify(response.data)});
-        //console.log(JSON.stringify(response.data));
+
       })
       .catch(function (error) {
-        res.render('dummy', {dummy: 'JSON.stringify(response.data)'});
-        console.log(error);
+        console.error(error);
       });
       
 });
@@ -278,7 +251,7 @@ router.post('/create', async function(req,res,next){
             "paymentId": "1",
             "items": cartArray.data.items
         });
-          
+
         var config2 = {
         method: 'post',
         url:  `${process.env.base_url}/orders`,
@@ -288,16 +261,13 @@ router.post('/create', async function(req,res,next){
         },
         data : data
         };
-        console.log(config2)
         
         const obj = await axios(config2)
-        //console.log(productRequests)
-        //console.log(obj)
+
         return obj
-        //return cartArray.data.items
     }
-    var ahmet = await createOrder(config)
-    res.render('dummy', {dummy: ahmet.data});
+    var orderDetail = await createOrder(config)
+    res.render('dummy', {dummy: orderDetail});
 
 
 })
