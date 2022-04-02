@@ -24,7 +24,7 @@ router.get('/cart', async (req, res, next) => {
     };
 
     async function renderCart(config){
-        const cartArray = await axios(config) .catch(function (error) { console.log(error);});
+        const cartArray = await axios(config) .catch(function (error) { console.log(error); res.render('cart', { status: "404"});});
         const productRequests = []
         obj=[];
         
@@ -95,7 +95,7 @@ router.get('/wishlist', async function(req, res, next) {
     };
 
     async function renderWish(config){
-        const wishArray = await axios(config) .catch(function (error) { console.log(error);});
+        const wishArray = await axios(config) .catch(function (error) { console.log(error); res.render('wishlist', { status: "404"});});
           
         const productRequests = []
         obj=[];

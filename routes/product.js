@@ -10,6 +10,12 @@ dotenv.config()
 
 //get subcategory 
 router.get(['/categories/:id'], function(req, res) {
+  if(!req.cookies.name){
+    var user="Visitor";
+  }else{
+    var user = req.cookies.name;
+  }
+
   var catName = req.params.id.replaceAll("-", " ").toUpperCase();
   if(req.params.id=="womens-accessories" || req.params.id=="womens-jewelry" || req.params.id=="womens-clothing" || req.params.id=="mens-clothing"){
     res.redirect(`/parent/${req.params.id}`)
@@ -17,7 +23,7 @@ router.get(['/categories/:id'], function(req, res) {
     //catName = axios.get(`${process.env.base_url}/categories/${req.params.id}&secretKey=${process.env.secretKey}`)
     axios.get(`${process.env.base_url}/products/product_search?primary_category_id=${req.params.id}&secretKey=${process.env.secretKey}`)
     .then(function (response){
-      res.render('category', {subCategory: response.data, categoryName: catName, categoryId: req.params.id});
+      res.render('category', {subCategory: response.data,  username: user, categoryName: catName, categoryId: req.params.id});
     }).catch(function (err){
       console.log(err);
       console.error(err);
