@@ -1,5 +1,30 @@
-extends layout 
+doctype html
+html
+  head
+    title= title
 
+    link(rel='stylesheet', href='/static/stylesheets/style.css')
+  body.main-page
+header
+    .title
+        h1.title Welcome to AlibaZon #{username}
+            div.header-right.dropdown
+              button.btn.dropbtn Categories
+              .dropdown-content
+                a.category-title(href='/parent/mens') Mens
+                a.category-sub(href='/parent/mens-clothing') Mens Clothing
+                a.category-sub(href='/parent/mens-accessories') Mens Accessories
+                a.category-title(href='/parent/womens') Womens
+                a.category-sub(href='/parent/womens-clothing') Womens Clothing
+                a.category-sub(href='/parent/womens-accessories') Womens Accessories
+                a.category-sub(href='/parent/womens-jewelry') Womens Jewelry
+            a(href='/auth/signin')
+              input.btn.header-right(type='button' value='Sign in')
+            a(href='/auth/signup')
+              input.btn.header-right(type='button' value='Sign up')
+    ul.breadcrumb
+        li(class=title=='Home'?'active':undefined)
+            a(href='/') HOMEPAGE
 block content
 
     .index-mid
@@ -22,3 +47,4 @@ block content
                         input.form(type='text',  placeholder='confirm password', name='cPassword')
                 br   
                 button.btn.long(type='submit') Submit
+    include footer
